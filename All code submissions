@@ -127,7 +127,7 @@ class Solution {
     }
 }
 
-//code 7  reverse pairs
+//code 8  reverse pairs
 class Solution {
 public:
     int merge(vector<int>& nums, int left, int mid, int right) {
@@ -170,7 +170,7 @@ public:
         return mergeSort(nums, 0, nums.size() - 1);
     }
 };
-//code 8
+//code 9 skyline problem.
 
 class TopNode {
     int x;
