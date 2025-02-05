@@ -1,0 +1,128 @@
+//code1
+class Solution {
+    public String longestNiceSubstring(String s) {
+        Set<Character> set = new HashSet<>();
+        for (int i = 0; i < s.length(); i++) {
+            set.add(s.charAt(i));
+        }
+        for (int i = 0; i < s.length(); i++) {
+            if (set.contains(Character.toUpperCase(s.charAt(i))) &&
+                    set.contains(Character.toLowerCase(s.charAt(i)))) {
+                continue;
+            }
+            String s1 = longestNiceSubstring(s.substring(0, i));
+            String s2 = longestNiceSubstring(s.substring(i+1));
+            return s1.length()>= s2.length() ? s1 : s2;
+        }
+        return s;
+    }
+}
+//code 2
+public class Solution {
+    public int reverseBits(int n) {
+        if (n == 0) return 0;
+        
+        int result = 0;
+
+        for (int i = 0; i < 32; i++) {
+            result <<= 1;
+            result += n & 1;
+            n >>= 1;
+        }
+
+        return result;
+    }
+}
+//code 3
+public class Solution {
+    public int hammingWeight(int n) {
+        int ans=0;
+         while(n!=0){
+             n = n & (n-1);
+            ans++;
+        }
+        return ans;
+    }
+}
+//code 4
+class Solution {
+    public static int maxSubArray(int[] nums) {
+        int max = nums[0], sum = 0;
+        for (int num : nums) {
+            sum += num;
+            max = Math.max(max, sum);
+            if (sum < 0) sum = 0;
+        }
+        return max;
+    }
+
+    public static void main(String[] arg) {
+        int[] nums = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
+        System.out.println(maxSubArray(nums));
+    }
+}
+//code 5
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        for(int i = 0; i < matrix.length; i++){
+            for(int j = 0; j < matrix[0].length; j++){
+                if(matrix[i][j] == target) return true;
+            }
+        }
+        return false;
+    }
+}
+//code 6
+class Solution {
+    public int superPow(int a, int[] b) {
+        int num=0;
+        for(int i:b){
+            num=(num*10+i)%1140;
+        }
+        return binexpo(a,num,1337);
+    }
+    public int binexpo(int a, int b, int m){
+        a%=m;
+        int res=1;
+        while(b>0){
+            if((b&1)==1)
+                res=(res*a)%m;
+            a=(a*a)%m;
+            b>>=1;
+        }
+        return res;
+    }
+}
+//code 7
+class Solution {
+    public int[] beautifulArray(int n) {
+        int[] ans = new int[n];
+        for(int i = 0; i  < n; i++){
+            ans[i] = i+1;
+        }
+        recursion(ans, 0, n-1);
+        return ans;
+    }
+    public void recursion(int[] arr, int left, int right){
+        if(left >= right)
+            return;
+        ArrayList<Integer> l = new ArrayList<>();
+        ArrayList<Integer> r = new ArrayList<>();
+        boolean alt = true;						
+        for(int i = left; i <= right; i++){ 
+            if(alt)
+                l.add(arr[i]);
+            else
+                r.add(arr[i]);
+            alt = !alt;
+        }
+        for(int i = left; i <= right; i++){ 
+            if(!l.isEmpty())
+                arr[i] = l.remove(0);
+            else
+                arr[i] = r.remove(0);
+        }
+        recursion(arr, left, (right+left)/2);
+        recursion(arr, (left+right)/2+1, right);
+    }
+}
